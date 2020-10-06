@@ -47,10 +47,11 @@ class ImageUpscaler():
 
     def upscale_images_in_path(self, images_path, result_path='./results'):
         image_filenames = os.listdir(images_path)
-        for image_filename in image_filenames:
-            image = self.read_image(os.path.join(images_path, image_filename))
-            upscaled_image = self.upscale_image(image)
-            upscaled_image.save(os.path.join(result_path, image_filename))
+        with torch.no_grad():
+            for image_filename in image_filenames:
+                image = self.read_image(os.path.join(images_path, image_filename))
+                upscaled_image = self.upscale_image(image)
+                upscaled_image.save(os.path.join(result_path, image_filename))
 
 
 def main():
